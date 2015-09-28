@@ -147,25 +147,26 @@
 			// Hide message.
 			$message._hide();
 
-			// Disable submit.
-			$submit.disabled = true;
-
 			// Process form.
 			var request = new XMLHttpRequest();
-			request.open('POST', '//formspree.io/davis.matthewjames+ji@gmail.com', true);
+			request.open('POST', '//japaninsider.us11.list-manage.com/subscribe/post', true);
 			request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			request.setRequestHeader('Accept', 'application/json');
-			request.onload = function() {
-			    if (request.status === 200) {
-			        $form.reset();
-					$message._show('success', 'You\'re in.');
-			    }
-			    else {
-			        $message._show('failure', 'Something went wrong. Please try again.');
-			    }
-				$submit.disabled = false;
-			};
-			request.send('email=' + $form.email.value);
+			request.send('u=085d73ebee6205ba545fd7a00&id=321ae0f0ca&MERGE0={email}&b_085d73ebee6205ba545fd7a00_321ae0f0ca={botcheck}'
+				.replace('{email}', $form.email.value)
+				.replace('{botcheck}', $form.botcheck.value));
+
+	        $form.reset();
+			$message._show('success', 'You\'re in.');
+
+			function serialize(obj) {
+				var str = [];
+				for(var p in obj)
+					if (obj.hasOwnProperty(p)) {
+					  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+					}
+				return str.join("&");
+			}
 		});
 	})();
 
